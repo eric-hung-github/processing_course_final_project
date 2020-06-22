@@ -86,12 +86,26 @@ function setUpGrid(x, y) {
 
 function setUpTool(x, y) {
     for (let j = 0; j < 10; j++) {
-        toolsBlock[0][j] = new FuncFor(j * functSize + x + j * gridSep, functSize + y);
+        if(j==0)toolsBlock[0][0]=new FuncNull(j * functSize + x + j * gridSep, functSize + y);
+        //if(j==1) toolsBlock[0][1]=new FuncFor(j * functSize + x + j * gridSep, functSize + y);
+        if(j==1)toolsBlock[0][1]=new FuncRight(j * functSize + x + j * gridSep, functSize + y);
+        if(j==2)toolsBlock[0][2]=new FuncLeft(j * functSize + x + j * gridSep, functSize + y);
+        if(j==3)toolsBlock[0][3]=new FuncBack(j * functSize + x + j * gridSep, functSize + y);
+        if(j==4)toolsBlock[0][4]=new FuncForward(j * functSize + x + j * gridSep, functSize + y);
     }
+
 }
 
 function drawBackPack(x, y) {
     fill(198, 198, 198);
     strokeWeight(2)
     rect(x, y, uiWidth, uiHeight, 5);
+}
+
+function compileMyBlock(){
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 10; j++) {
+            gridss[i][j].func();
+        }
+    }
 }

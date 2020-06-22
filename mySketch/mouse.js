@@ -15,13 +15,16 @@ class Mouse {
     }
 
     press() {
-        
-        var gettedBlock = this.getBlock(gridss);
-        if (gettedBlock == null) {
-            gettedBlock = this.getBlock(toolsBlock);
+        var gettedBlock = null;
+        if (this.getBlock(gridss) != null) {
+            gettedBlock = gridss[this.getBlock(gridss)[0]][this.getBlock(gridss)[1]];
+        }
+        if (gettedBlock == null && this.getBlock(toolsBlock) != null) {
+            gettedBlock = toolsBlock[this.getBlock(toolsBlock)[0]][this.getBlock(toolsBlock)[1]];
         }
 
-        this.block = Object.assign( Object.create( Object.getPrototypeOf(gettedBlock)), gettedBlock)
+        this.block = Object.assign(Object.create(Object.getPrototypeOf(gettedBlock)), gettedBlock);
+
         //gettedBlock.change(Object.create(FuncBlock))
         //Object.assign(gettedBlock,Object.create( FuncBlock));
         //console.log("get", this.block);
@@ -29,15 +32,15 @@ class Mouse {
 
     release() {
         //console.log("release", this.block);
-        let gettedBlock = this.getBlock(gridss);
+        let gettedBlockIndex = this.getBlock(gridss);
 
-        if (gettedBlock == null) {
-            gettedBlock = this.getBlock(toolsBlock);
-        }
-
-        if (this.block != null && gettedBlock != null) {
+        if (this.block != null && gettedBlockIndex != null) {
             //console.log("change");
-            gettedBlock.change(this.block);
+            let tx = gridss[gettedBlockIndex[0]][gettedBlockIndex[1]].x;
+            let ty = gridss[gettedBlockIndex[0]][gettedBlockIndex[1]].y;
+            gridss[gettedBlockIndex[0]][gettedBlockIndex[1]] = this.block;
+            gridss[gettedBlockIndex[0]][gettedBlockIndex[1]].x = tx;
+            gridss[gettedBlockIndex[0]][gettedBlockIndex[1]].y = ty;
         }
         delete this.block;
     }
@@ -47,7 +50,7 @@ class Mouse {
             const blocks = blockss[i];
             for (let j = 0; j < blocks.length; j++) {
                 const block = blocks[j];
-                if (this.isGetThisBlock(blockss[i][j])) return blockss[i][j];
+                if (this.isGetThisBlock(blockss[i][j])) return [i, j];
             }
         }
         return null;

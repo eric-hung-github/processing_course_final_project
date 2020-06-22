@@ -20,8 +20,8 @@ function Renderer(canvas, world, player)
 	this.vertex = {};
 	
 	// define canvas size according to window size
-	this.canvas.width  = window.innerWidth-100;
-	this.canvas.height = window.innerHeight;
+	this.canvas.width  = window.innerWidth;
+	this.canvas.height = window.innerHeight-50;
 	
 	// half canvas size for math later on
 	this.w2 = (this.canvas.width/2)|0;
@@ -100,8 +100,8 @@ function Renderer(canvas, world, player)
 	// update canvas size
 	window.onresize = function()
 	{
-		renderer.canvas.width  = window.innerWidth-100;
-		renderer.canvas.height = window.innerHeight;
+		renderer.canvas.width  = window.innerWidth;
+		renderer.canvas.height = window.innerHeight-50;
 		renderer.w2 = (renderer.canvas.width/2)|0;
 		renderer.h2 = (renderer.canvas.height/2)|0;
 	}
